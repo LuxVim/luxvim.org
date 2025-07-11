@@ -1,1 +1,89 @@
 @import 'tailwindcss';
+
+/* Add to your global.css file */
+
+/* Galaxy background styles */
+#galaxy-background {
+  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 25%, #a5b4fc 50%, #8b5cf6 75%, #7c3aed 100%);
+  transition: background 0.3s ease;
+}
+
+.dark #galaxy-background {
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+}
+
+/* Canvas styling */
+#galaxy-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+}
+
+/* Smooth transitions for theme changes */
+.transition-colors {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Theme toggle switch styles */
+.theme-switch {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-switch:hover {
+  transform: scale(1.05);
+}
+
+.theme-switch:active {
+  transform: scale(0.95);
+}
+
+/* Switch thumb positioning */
+.switch-thumb {
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform: translateX(-16px); /* Light mode - left position */
+}
+
+.dark .switch-thumb {
+  transform: translateX(16px); /* Dark mode - right position */
+}
+
+/* Focus ring for accessibility */
+.theme-switch:focus {
+  outline: 2px solid #a855f7;
+  outline-offset: 2px;
+}
+
+/* Enhanced backdrop blur for better text readability */
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+}
+
+/* Ensure proper stacking context */
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+/* Z-index utilities for proper layering */
+.z-0 { z-index: 0; }
+.z-5 { z-index: 5; }
+.z-10 { z-index: 10; }
+
+/* Pulse animation enhancement */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

@@ -1,25 +1,72 @@
 ---
 import '../styles/global.css';
-// Component Imports
-import Button from '../components/Button.astro';
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/basics/astro-components/
+import Main from '../layouts/main.astro';
 ---
+<Main 
+  title="JostVim - Lightweight Vim IDE for Developers"
+  description="A lightweight Vim IDE designed for developers, offering a seamless coding experience with powerful features and a user-friendly interface."
+  keywords="vim, neovim, jostvim, ide, lightweight, developer tools, coding, programming, text editor, productivity"
+>
+  <div class="relative h-screen" data-controller="theme">
+    <!-- Galaxy Background -->
+    <div id="galaxy-background" class="absolute inset-0 z-0">
+      <canvas id="galaxy-canvas" class="w-full h-full"></canvas>
+    </div>
+    
+    <!-- Gradient overlay for better text contrast -->
+    <div class="absolute inset-0 z-5 bg-gradient-to-b from-transparent via-white/3 to-white/10 dark:from-transparent dark:via-black/10 dark:to-black/30"></div>
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro + TailwindCSS</title>
-	</head>
+    <!-- Main Content -->
+    <div class="relative z-10 flex flex-col items-center justify-center h-full text-center transition-colors duration-300">
+      <!-- Theme Toggle Switch -->
+      <div class="absolute top-6 right-6">
+        <button
+          type="button"
+          class="theme-switch relative inline-flex h-12 w-20 items-center justify-center rounded-full border-2 dark:border-gray-600 border-gray-300 bg-white/20 dark:bg-black/20 backdrop-blur-sm transition-all duration-300 hover:bg-white/30 dark:hover:bg-black/30 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+          data-action="theme#toggle"
+        >
+          <!-- Switch Track -->
+          <div class="absolute inset-1 rounded-full bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 transition-all duration-300"></div>
+          
+          <!-- Switch Thumb -->
+          <div class="switch-thumb relative z-10 flex h-8 w-8 transform items-center justify-center rounded-full bg-white dark:bg-gray-900 shadow-lg transition-all duration-300 border border-gray-300 dark:border-gray-600">
+            <!-- Sun Icon (Light Mode) -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 text-yellow-500 transition-all duration-300 dark:opacity-0 dark:scale-0 opacity-100 scale-100"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                d="M10 2a1 1 0 011 1v1a1 1 0 01-2 0V3a1 1 0 011-1zm4.22 2.22a1 1 0 010 1.42l-.7.7a1 1 0 11-1.42-1.42l.7-.7a1 1 0 011.42 0zM18 9a1 1 0 110 2h-1a1 1 0 110-2h1zM4.22 4.22a1 1 0 011.42 0l.7.7a1 1 0 11-1.42 1.42l-.7-.7a1 1 0 010-1.42zM3 9a1 1 0 100 2H2a1 1 0 100-2h1zm11.07 6.93a1 1 0 01-1.42 1.42l-.7-.7a1 1 0 111.42-1.42l.7.7zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.95-.07a1 1 0 001.42 0l.7-.7a1 1 0 00-1.42-1.42l-.7.7a1 1 0 000 1.42z"
+              />
+            </svg>
+            
+            <!-- Moon Icon (Dark Mode) -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="absolute h-4 w-4 text-purple-400 transition-all duration-300 dark:opacity-100 dark:scale-100 opacity-0 scale-0"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                d="M17.293 13.95a8 8 0 01-10.243-10.24A8.001 8.001 0 0017.293 13.95z"
+              />
+            </svg>
+          </div>
+          
+          <!-- Light/Dark Labels -->
+          <span class="absolute left-2 text-xs font-medium text-gray-600 dark:text-gray-400 transition-all duration-300 dark:opacity-80 opacity-100">☀</span>
+          <span class="absolute right-2 text-xs font-medium text-gray-600 dark:text-gray-400 transition-all duration-300 dark:opacity-100 opacity-30">🌙</span>
+        </button>
+      </div>
 
-	<body>
-		<div class="grid place-items-center h-screen content-center">
-			<Button>Tailwind Button in Astro!</Button>
-			<a href="/markdown-page" class="p-4 underline">Markdown is also supported...</a>
-		</div>
-	</body>
-</html>
+      <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text animate-pulse">
+        JostVim Coming Soon
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300">
+        A lightweight, powerful Vim IDE for modern developers.
+      </p>
+    </div>
+  </div>
+</Main>
