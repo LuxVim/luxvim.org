@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
 	server: { port: 9000 },
 	site: 'https://jostvim.github.io',
-	base: '/jostvim.org/',
+	base: '/jostvim.org',
 	vite: {
 		plugins: [tailwindcss()]
 	}
