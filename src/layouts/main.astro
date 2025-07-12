@@ -1,5 +1,6 @@
 ---
 // src/layouts/Main.astro
+import '../styles/global.css';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import Navbar from '../components/Navbar.astro';
 
@@ -23,7 +24,6 @@ const {
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="/src/styles/global.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
