@@ -1,7 +1,5 @@
 @import 'tailwindcss';
 
-/* Add to your global.css file */
-
 /* Galaxy background styles */
 #galaxy-background {
   background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 25%, #a5b4fc 50%, #8b5cf6 75%, #7c3aed 100%);
@@ -25,6 +23,47 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Enhanced backdrop blur for better text readability */
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+}
+
+/* Navbar styles */
+nav {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Navigation link animations */
+.nav-link {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.nav-link:hover::before {
+  left: 100%;
+}
+
+/* Ensure content doesn't go under navbar */
+.main-content {
+  min-height: 100vh;
+}
+
+.main-content.with-navbar {
+  padding-top: 80px;
+}
+
 /* Theme toggle switch styles */
 .theme-switch {
   position: relative;
@@ -39,40 +78,31 @@
   transform: scale(0.95);
 }
 
-/* Switch thumb positioning */
+/* Switch thumb positioning - FIXED LOGIC */
 .switch-thumb {
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  transform: translateX(-16px); /* Light mode - left position */
+  transform: translateX(-16px); /* Light mode - left position, covers sun, shows moon */
 }
 
 .dark .switch-thumb {
-  transform: translateX(16px); /* Dark mode - right position */
+  transform: translateX(16px); /* Dark mode - right position, covers moon, shows sun */
 }
 
-/* Focus ring for accessibility */
+/* Remove focus outline and customize focus ring */
 .theme-switch:focus {
-  outline: 2px solid #a855f7;
-  outline-offset: 2px;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.3);
+  transition: box-shadow 0.2s ease;
 }
 
-/* Enhanced backdrop blur for better text readability */
-.backdrop-blur-sm {
-  backdrop-filter: blur(4px);
+.theme-switch:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.5);
 }
 
-/* Ensure proper stacking context */
-.relative {
-  position: relative;
+.theme-switch:hover:focus {
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2);
 }
-
-.absolute {
-  position: absolute;
-}
-
-/* Z-index utilities for proper layering */
-.z-0 { z-index: 0; }
-.z-5 { z-index: 5; }
-.z-10 { z-index: 10; }
 
 /* Pulse animation enhancement */
 @keyframes pulse {
