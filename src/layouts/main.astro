@@ -1,24 +1,29 @@
 ---
 // src/layouts/Main.astro
-import '../styles/global.css';
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import Navbar from '../components/Navbar.astro';
 
 export interface Props {
   title: string;
   description?: string;
   keywords?: string;
+  githubUrl?: string;
+  showNavbar?: boolean;
 }
 
 const { 
   title, 
   description = "JostVim", 
-  keywords = "vim, neovim, jostvim, ide" 
+  keywords = "vim, neovim, jostvim, ide",
+  githubUrl = "https://github.com/josstei/JoStVIM",
+  showNavbar = true
 } = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="/src/styles/global.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
@@ -30,7 +35,9 @@ const {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   </head>
   <body>
-    <main class="main-content">
+    {showNavbar && <Navbar githubUrl={githubUrl} />}
+    
+    <main class={showNavbar ? "main-content with-navbar" : "main-content"}>
       <slot />
     </main>
   </body>

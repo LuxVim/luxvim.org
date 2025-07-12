@@ -5,10 +5,6 @@ export default class extends Controller {
   static targets = ["canvas"]
 
   connect() {
-    // Initialize theme from localStorage or default to dark
-    const savedTheme = localStorage.getItem('theme') || 'dark'
-    this.setTheme(savedTheme)
-    
     // Initialize galaxy animation
     this.initializeGalaxy()
     
@@ -24,21 +20,8 @@ export default class extends Controller {
     window.removeEventListener('resize', this.handleResize)
   }
 
-  toggle() {
-    const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light'
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark'
-    this.setTheme(newTheme)
-    this.updateParticleColors()
-  }
 
-  setTheme(theme) {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-    localStorage.setItem('theme', theme)
-  }
+
 
   initializeGalaxy() {
     const canvas = document.getElementById('galaxy-canvas')
