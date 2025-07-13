@@ -1,0 +1,38 @@
+name: Update PR Title
+
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  update-title:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Update PR Title
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const issueRegex = /#(\d+)/;
+            const match = pr.body.match(issueRegex);
+            if (match) {
+              const issue_number = match[1];
+              const issue = await github.rest.issues.get({
+                ...context.repo,
+                issue_number: Number(issue_number)
+              });
+              const issue_title = issue.data.title;
+              const newTitle = `Resolves: #${issue_number} ${issue_title}`;
+              if (pr.title !== newTitle) {
+                await github.rest.pulls.update({
+                  ...context.repo,
+                  pull_number: pr.number,
+                  title: newTitle
+                });
+              }
+            }
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
