@@ -1,50 +1,22 @@
-name: Update PR Title and Body
+name: Format PR Title and Body
 
 on:
   pull_request:
-    types: [opened, edited]
+    types: [opened]
 
 jobs:
-  update-title-and-body:
+  format-pr:
     runs-on: ubuntu-latest
     steps:
-      - name: Update PR Title and Body
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const pr = context.payload.pull_request;
-            const issueRegex = /#(\d+)/;
-            let match = null;
-
-            // Check PR body and title for the first issue reference
-            if (pr.body) match = pr.body.match(issueRegex);
-            if (!match && pr.title) match = pr.title.match(issueRegex);
-
-            if (match) {
-              const issue_number = match[1];
-              const issue = await github.rest.issues.get({
-                ...context.repo,
-                issue_number: Number(issue_number)
-              });
-              const issue_title = issue.data.title;
-              const newTitle = `Resolves: #${issue_number} ${issue_title}`;
-
-              // Prepare new body (append 'Closes #123' if not already present)
-              let newBody = pr.body || "";
-              const closesLine = `Closes #${issue_number}`;
-              if (!newBody.includes(closesLine)) {
-                newBody = (newBody + "\n\n" + closesLine).trim();
-              }
-
-              // Only update if changes are needed
-              if (pr.title !== newTitle || pr.body !== newBody) {
-                await github.rest.pulls.update({
-                  ...context.repo,
-                  pull_number: pr.number,
-                  title: newTitle,
-                  body: newBody
-                });
-              }
-            }
+      - name: Update PR title and body
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          REPO: ${{ github.repository }}
+        run: |
+          BRANCH_NAME="${HEAD_REF}"
+          ISSUE_TITLE="$(echo "$BRANCH_NAME" | sed -E 's/^[0-9]+-//' | sed -E 's/-/ /g' | sed -E 's/\b(.)/\u\1/g')"
+          NEW_TITLE="Resolves: $ISSUE_TITLE"
+          NEW_BODY="Closes #$BRANCH_NAME"
+          gh pr edit "$PR_NUMBER" --repo "$REPO" --title "$NEW_TITLE" --body "$NEW_BODY"
