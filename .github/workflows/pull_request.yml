@@ -1,0 +1,72 @@
+name: Auto PR Title and Body
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  auto-pr-details:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      issues: read
+      contents: read
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set PR title and body
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Get PR details
+            const pr = context.payload.pull_request;
+            const branchName = pr.head.ref;
+            
+            // Extract issue number from branch name - look for patterns like "issue-123", "feature/123-description", or "123-description"
+            // But avoid matching random numbers in usernames or patch numbers
+            const issueNumberMatch = branchName.match(/(?:issue[-_]?|#)(\d+)|^(\d+)[-_]|\/(\d+)[-_]/);
+            const issueNumber = issueNumberMatch ? (issueNumberMatch[1] || issueNumberMatch[2] || issueNumberMatch[3]) : null;
+            
+            let prTitle = '';
+            let prBody = '';
+            
+            if (issueNumber) {
+              try {
+                // Try to get the issue details
+                const issue = await github.rest.issues.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: parseInt(issueNumber)
+                });
+                
+                // Use issue title for PR title
+                prTitle = `Resolves: ${issue.data.title}`;
+                prBody = `Closes: #${issueNumber}`;
+              } catch (error) {
+                // If issue doesn't exist, fall back to branch name
+                console.log(`Issue #${issueNumber} not found, using branch name`);
+                prTitle = `Resolves: ${branchName}`;
+                prBody = `Closes: #${issueNumber}`;
+              }
+            } else {
+              // No issue number found, use branch name
+              prTitle = `Resolves: ${branchName}`;
+              prBody = '';
+            }
+            
+            // Update the PR
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              title: prTitle,
+              body: prBody
+            });
+            
+            console.log(`Updated PR #${pr.number}:`);
+            console.log(`Title: ${prTitle}`);
+            console.log(`Body: ${prBody}`);
