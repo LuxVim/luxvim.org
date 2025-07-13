@@ -7,16 +7,29 @@ on:
 jobs:
   format-pr:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
     steps:
+      - name: Install GitHub CLI
+        run: sudo apt-get update && sudo apt-get install -y gh
+
       - name: Update PR title and body
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           HEAD_REF: ${{ github.event.pull_request.head.ref }}
           REPO: ${{ github.repository }}
         run: |
           BRANCH_NAME="${HEAD_REF}"
+          ISSUE_NUMBER="$(echo "$BRANCH_NAME" | grep -o '^[0-9]\+')"
           ISSUE_TITLE="$(echo "$BRANCH_NAME" | sed -E 's/^[0-9]+-//' | sed -E 's/-/ /g' | sed -E 's/\b(.)/\u\1/g')"
           NEW_TITLE="Resolves: $ISSUE_TITLE"
-          NEW_BODY="Closes #$BRANCH_NAME"
+          # Only add "Closes #number" if an issue number is present
+          if [ -n "$ISSUE_NUMBER" ]; then
+            NEW_BODY="Closes #$ISSUE_NUMBER"
+          else
+            NEW_BODY=""
+          fi
           gh pr edit "$PR_NUMBER" --repo "$REPO" --title "$NEW_TITLE" --body "$NEW_BODY"
