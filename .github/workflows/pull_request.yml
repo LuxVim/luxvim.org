@@ -2,7 +2,7 @@ name: Auto PR Title and Body
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, edited, synchronize]
 
 jobs:
   auto-pr-details:
@@ -26,9 +26,10 @@ jobs:
             const pr = context.payload.pull_request;
             const branchName = pr.head.ref;
             
-            // Extract issue number from branch name (assumes format like "feature/123-description" or "123-description")
-            const issueNumberMatch = branchName.match(/(\d+)/);
-            const issueNumber = issueNumberMatch ? issueNumberMatch[1] : null;
+            // Extract issue number from branch name - look for patterns like "issue-123", "feature/123-description", or "123-description"
+            // But avoid matching random numbers in usernames or patch numbers
+            const issueNumberMatch = branchName.match(/(?:issue[-_]?|#)(\d+)|^(\d+)[-_]|\/(\d+)[-_]/);
+            const issueNumber = issueNumberMatch ? (issueNumberMatch[1] || issueNumberMatch[2] || issueNumberMatch[3]) : null;
             
             let prTitle = '';
             let prBody = '';
