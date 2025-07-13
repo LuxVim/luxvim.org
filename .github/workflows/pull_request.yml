@@ -1,35 +1,73 @@
-name: Format PR Title and Body
+name: Auto PR Title and Body
 
 on:
   pull_request:
     types: [opened, edited, synchronize]
 
 jobs:
-  format-pr:
+  auto-pr-details:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
+      issues: read
       contents: read
-
+    
     steps:
-      - name: Install GitHub CLI
-        run: sudo apt-get update && sudo apt-get install -y gh
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Update PR title and body
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          HEAD_REF: ${{ github.event.pull_request.head.ref }}
-          REPO: ${{ github.repository }}
-        run: |
-          BRANCH_NAME="${HEAD_REF}"
-          ISSUE_NUMBER="$(echo "$BRANCH_NAME" | grep -o '^[0-9]\+')"
-          ISSUE_TITLE="$(echo "$BRANCH_NAME" | sed -E 's/^[0-9]+-//' | sed -E 's/-/ /g' | sed -E 's/\b(.)/\u\1/g')"
-          NEW_TITLE="Resolves: $ISSUE_TITLE"
-          # Only add "Closes #number" if an issue number is present
-          if [ -n "$ISSUE_NUMBER" ]; then
-            NEW_BODY="Closes #$ISSUE_NUMBER"
-          else
-            NEW_BODY=""
-          fi
-          gh pr edit "$PR_NUMBER" --repo "$REPO" --title "$NEW_TITLE" --body "$NEW_BODY"
+      - name: Set PR title and body
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { context, github } = require('@actions/github');
+            
+            // Get PR details
+            const pr = context.payload.pull_request;
+            const branchName = pr.head.ref;
+            
+            // Extract issue number from branch name (assumes format like "feature/123-description" or "123-description")
+            const issueNumberMatch = branchName.match(/(\d+)/);
+            const issueNumber = issueNumberMatch ? issueNumberMatch[1] : null;
+            
+            let prTitle = '';
+            let prBody = '';
+            
+            if (issueNumber) {
+              try {
+                // Try to get the issue details
+                const issue = await github.rest.issues.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: parseInt(issueNumber)
+                });
+                
+                // Use issue title for PR title
+                prTitle = `Resolves: ${issue.data.title}`;
+                prBody = `Closes: #${issueNumber}`;
+              } catch (error) {
+                // If issue doesn't exist, fall back to branch name
+                console.log(`Issue #${issueNumber} not found, using branch name`);
+                prTitle = `Resolves: ${branchName}`;
+                prBody = `Closes: #${issueNumber}`;
+              }
+            } else {
+              // No issue number found, use branch name
+              prTitle = `Resolves: ${branchName}`;
+              prBody = '';
+            }
+            
+            // Update the PR
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              title: prTitle,
+              body: prBody
+            });
+            
+            console.log(`Updated PR #${pr.number}:`);
+            console.log(`Title: ${prTitle}`);
+            console.log(`Body: ${prBody}`);
