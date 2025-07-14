@@ -8,7 +8,7 @@ layout: ../layouts/main.astro
   Tailwind classes also work in Markdown! Saving this for later!!
  </div>
  <a
-  href="/jostvim.org/"
+  href="/Luxvim.org/"
   class="p-4 underline hover:text-purple-500 transition-colors ease-in-out duration-200"
  >
   Go home

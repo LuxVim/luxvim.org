@@ -1,30 +1,658 @@
 ---
-import '../styles/global.css';
-import Main from '../layouts/main.astro';
+import "../styles/global.css";
+import Main from "../layouts/main.astro";
 ---
-<Main 
-  title="JostVim - Lightweight Vim IDE for Developers"
-  description="A lightweight Vim IDE designed for developers, offering a seamless coding experience with powerful features and a user-friendly interface."
-  keywords="vim, neovim, jostvim, ide, lightweight, developer tools, coding, programming, text editor, productivity"
+
+<Main
+  title="LuxVim - Fast setup, faster coding"
+  description="A tailored Vim/Neovim configuration that boosts productivity for developers across languages and stacks. Rich plugins, sensible defaults, and custom productivity tools."
+  keywords="vim, neovim, Luxvim, ide, lightweight, developer tools, coding, programming, text editor, productivity, vim configuration"
   githubUrl="https://github.com/josstei/jostvim"
 >
-  <div class="relative h-screen">
+  <!-- Hero Section -->
+  <section class="relative min-h-screen">
     <!-- Galaxy Background -->
-    <div id="galaxy-background" class="absolute inset-0 z-0" data-controller="galaxy">
+    <div
+      id="galaxy-background"
+      class="absolute inset-0 z-0"
+      data-controller="galaxy"
+    >
       <canvas id="galaxy-canvas" class="w-full h-full"></canvas>
     </div>
-    
-    <!-- Gradient overlay for better text contrast -->
-    <div class="absolute inset-0 z-5 bg-gradient-to-b from-transparent via-white/3 to-white/10 dark:from-transparent dark:via-black/10 dark:to-black/30"></div>
 
-    <!-- Main Content -->
-    <div class="relative z-10 flex flex-col items-center justify-center h-full text-center transition-colors duration-300">
-      <h1 class="text-5xl md:text-7xl font-bold pb-6 tracking-tight bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text animate-pulse">
-        JostVim Coming Soon
-      </h1>
-      <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300">
-        A lightweight, powerful Vim IDE for modern developers.
-      </p>
+    <!-- Gradient overlay for better text contrast -->
+    <div
+      class="absolute inset-0 z-5 bg-gradient-to-b from-transparent via-black/5 to-black/15 dark:from-transparent dark:via-black/20 dark:to-black/40"
+    >
     </div>
-  </div>
+
+    <!-- Hero Content -->
+    <div
+      class="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-6 pt-20 md:pt-0"
+    >
+      <!-- Status Badge -->
+      <div class="mb-6 md:mb-8">
+        <span
+          class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300"
+        >
+          <span class="w-2 h-2 bg-orange-500 rounded-full mr-2 animate-pulse"
+          ></span>
+          In Development
+        </span>
+      </div>
+
+      <!-- Main Headlines -->
+      <h1
+        class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight"
+      >
+        <span
+          class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text"
+        >
+          LuxVim
+        </span>
+      </h1>
+
+      <h2
+        class="text-2xl md:text-3xl lg:text-4xl font-semibold mb-8 text-slate-800 dark:text-slate-200"
+      >
+        Fast setup, faster coding
+      </h2>
+
+      <p
+        class="text-lg md:text-xl max-w-3xl mx-auto mb-12 text-slate-700 dark:text-slate-300 leading-relaxed"
+      >
+        A tailored Vim/Neovim configuration that boosts productivity for
+        developers across languages and stacks. Rich plugins, sensible defaults,
+        and custom productivity tools designed for a seamless development
+        experience.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 mb-16">
+        <a
+          href="#installation"
+          class="inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-purple-500/25"
+        >
+          <svg
+            class="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+            ></path>
+          </svg>
+          Get Started
+        </a>
+        <a
+          href="https://github.com/josstei/JoStVIM"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center px-8 py-4 text-lg font-semibold text-slate-800 dark:text-slate-200 bg-white/80 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-300/50 dark:border-slate-700/50 rounded-xl hover:bg-white/90 dark:hover:bg-slate-700/50 transition-all duration-300 hover:scale-105 shadow-lg"
+        >
+          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+            ></path>
+          </svg>
+          View on GitHub
+        </a>
+      </div>
+
+      <!-- Features Preview -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-8 md:mb-0"
+      >
+        <div
+          class="flex items-center justify-center p-4 bg-white/5 dark:bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-200/10 dark:border-slate-700/30"
+        >
+          <div class="text-center">
+            <div
+              class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center mx-auto mb-3"
+            >
+              <svg
+                class="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-slate-800 dark:text-slate-200">
+              Lightning Fast
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400">
+              Optimized for speed
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="flex items-center justify-center p-4 bg-white/5 dark:bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-200/10 dark:border-slate-700/30"
+        >
+          <div class="text-center">
+            <div
+              class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mx-auto mb-3"
+            >
+              <svg
+                class="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-slate-800 dark:text-slate-200">
+              Rich Plugins
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400">
+              Curated ecosystem
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="flex items-center justify-center p-4 bg-white/5 dark:bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-200/10 dark:border-slate-700/30"
+        >
+          <div class="text-center">
+            <div
+              class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mx-auto mb-3"
+            >
+              <svg
+                class="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-slate-800 dark:text-slate-200">
+              Customizable
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400">
+              Tailored for you
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section
+    class="py-16 md:py-20
+   bg-gray-50 dark:bg-slate-900
+    dark:from-slate-800 dark:via-slate-700 dark:to-slate-600
+    dark:backdrop-blur-sm"
+  >
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2
+          class="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-slate-100"
+        >
+          Why Choose LuxVim?
+        </h2>
+        <p class="text-xl text-slate-700 dark:text-slate-300 max-w-3xl mx-auto">
+          Built by developers, for developers. Every feature designed to boost
+          your productivity.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Custom Dashboard -->
+        <div
+          class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+        >
+          <div
+            class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
+              ></path>
+            </svg>
+          </div>
+          <h3
+            class="text-xl font-semibold mb-4 text-slate-900 dark:text-slate-100"
+          >
+            Custom Dashboard
+          </h3>
+          <p class="text-slate-700 dark:text-slate-300">
+            Interactive start screen with ASCII logo and quick actions for new
+            files, recent files, and project search.
+          </p>
+        </div>
+
+        <!-- Unified Command Menu -->
+        <div
+          class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+        >
+          <div
+            class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+            </svg>
+          </div>
+          <h3
+            class="text-xl font-semibold mb-4 text-slate-900 dark:text-slate-100"
+          >
+            Unified Command Menu
+          </h3>
+          <p class="text-slate-700 dark:text-slate-300">
+            Comprehensive operations menu for files, projects, Git, and
+            development tasks with smart project detection.
+          </p>
+        </div>
+
+        <!-- Environment Management -->
+        <div
+          class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+        >
+          <div
+            class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
+          <h3
+            class="text-xl font-semibold mb-4 text-slate-900 dark:text-slate-100"
+          >
+            Environment Management
+          </h3>
+          <p class="text-slate-700 dark:text-slate-300">
+            Easy switching between development environments and configurations
+            with project-specific settings.
+          </p>
+        </div>
+
+        <!-- Integrated Terminal -->
+        <div
+          class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+        >
+          <div
+            class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              ></path>
+            </svg>
+          </div>
+          <h3
+            class="text-xl font-semibold mb-4 text-slate-900 dark:text-slate-100"
+          >
+            Integrated Terminal
+          </h3>
+          <p class="text-slate-700 dark:text-slate-300">
+            Lightweight terminal buffer management with quick toggle
+            functionality for seamless workflow.
+          </p>
+        </div>
+
+        <!-- Smart Commenting -->
+        <div
+          class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+        >
+          <div
+            class="w-16 h-16 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
+              ></path>
+            </svg>
+          </div>
+          <h3
+            class="text-xl font-semibold mb-4 text-slate-900 dark:text-slate-100"
+          >
+            Smart Commenting
+          </h3>
+          <p class="text-slate-700 dark:text-slate-300">
+            Intelligent comment/uncomment functionality that automatically
+            detects file types and applies appropriate syntax.
+          </p>
+        </div>
+
+        <!-- Multiple Color Schemes -->
+        <div
+          class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+        >
+          <div
+            class="w-16 h-16 bg-gradient-to-br from-pink-500 to-rose-500 rounded-xl flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"
+              ></path>
+            </svg>
+          </div>
+          <h3
+            class="text-xl font-semibold mb-4 text-slate-900 dark:text-slate-100"
+          >
+            Beautiful Themes
+          </h3>
+          <p class="text-slate-700 dark:text-slate-300">
+            Choose from popular themes like Dracula, Gruvbox, Nord, and our
+            custom VoidPulse for optimal coding comfort.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Installation Section -->
+  <section
+    id="installation"
+    class="py-20
+     bg-gradient-to-r
+      from-purple-200 via-indigo-200 to-white
+    dark:from-slate-900 dark:via-slate-800 dark:to-slate-700"
+  >
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2
+          class="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white"
+        >
+          Get Started in Minutes
+        </h2>
+        <p class="text-xl text-slate-700 dark:text-slate-300 max-w-3xl mx-auto">
+          Simple installation process that doesn't interfere with your existing
+          Vim/Neovim setup.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Installation Steps -->
+        <div class="space-y-8">
+          <div class="flex items-start space-x-4">
+            <div
+              class="flex-shrink-0 w-10 h-10 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
+            >
+              1
+            </div>
+            <div>
+              <h3
+                class="text-xl font-semibold mb-2 text-slate-900 dark:text-white"
+              >
+                Clone the Repository
+              </h3>
+              <p class="text-slate-700 dark:text-slate-300 mb-3">
+                Download LuxVim to your local machine:
+              </p>
+              <div
+                class="bg-slate-800 text-gray-100 dark:bg-slate-700 dark:text-gray-200 rounded-lg p-4 font-mono text-sm overflow-x-auto shadow-lg"
+              >
+                <code class="text-green-400"
+                  >git clone https://github.com/josstei/JoStVIM.git</code
+                ><br />
+                <code class="text-blue-400">cd LuxVIM</code>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-start space-x-4">
+            <div
+              class="flex-shrink-0 w-10 h-10 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
+            >
+              2
+            </div>
+            <div>
+              <h3
+                class="text-xl font-semibold mb-2 text-slate-900 dark:text-white"
+              >
+                Run Installation
+              </h3>
+              <p class="text-slate-700 dark:text-slate-300 mb-3">
+                The install script handles everything automatically:
+              </p>
+              <div
+                class="bg-slate-800 text-gray-100 dark:bg-slate-700 dark:text-gray-200 rounded-lg p-4 font-mono text-sm shadow-lg"
+              >
+                <code class="text-yellow-400">./install.sh</code>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-start space-x-4">
+            <div
+              class="flex-shrink-0 w-10 h-10 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
+            >
+              3
+            </div>
+            <div>
+              <h3
+                class="text-xl font-semibold mb-2 text-slate-900 dark:text-white"
+              >
+                Launch LuxVim
+              </h3>
+              <p class="text-slate-700 dark:text-slate-300 mb-3">
+                Start coding with your new setup:
+              </p>
+              <div
+                class="bg-slate-800 text-gray-100 dark:bg-slate-700 dark:text-gray-200 rounded-lg p-4 font-mono text-sm shadow-lg"
+              >
+                <code class="text-cyan-400">Luxvim</code>
+                <span class="text-slate-500"># For Vim</span><br />
+                <code class="text-cyan-400">Lux</code>
+                <span class="text-slate-500"># For Neovim</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Requirements & Features -->
+        <div
+          class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-8"
+        >
+          <h3 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
+            Requirements
+          </h3>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center text-slate-700 dark:text-slate-300">
+              <svg
+                class="w-5 h-5 text-green-500 mr-3"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              Bash shell (Linux/macOS/WSL)
+            </li>
+            <li class="flex items-center text-slate-700 dark:text-slate-300">
+              <svg
+                class="w-5 h-5 text-green-500 mr-3"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              Vim or Neovim (recent versions)
+            </li>
+            <li class="flex items-center text-slate-700 dark:text-slate-300">
+              <svg
+                class="w-5 h-5 text-green-500 mr-3"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              curl for downloading plugins
+            </li>
+          </ul>
+
+          <div class="bg-white/50 dark:bg-slate-900/50 rounded-xl p-6">
+            <h4 class="font-semibold mb-3 text-slate-900 dark:text-white">
+              What the installer does:
+            </h4>
+            <ul class="space-y-2 text-sm text-slate-700 dark:text-slate-300">
+              <li>• Downloads and installs vim-plug</li>
+              <li>• Installs all plugins automatically</li>
+              <li>• Adds convenient shell aliases</li>
+              <li>• Keeps your existing Vim config safe</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="relative py-20 overflow-hidden">
+    <!-- Galaxy Background for CTA -->
+    <div
+      id="galaxy-background-cta"
+      class="absolute inset-0 z-0"
+      data-controller="galaxy"
+    >
+      <canvas id="galaxy-canvas-cta" class="w-full h-full"></canvas>
+    </div>
+
+    <!-- Gradient overlay for better text contrast -->
+    <div
+      class="absolute inset-0 z-5 bg-gradient-to-b from-transparent via-black/5 to-black/15 dark:from-transparent dark:via-black/20 dark:to-black/40"
+    >
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto text-center px-6">
+      <h2
+        class="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white"
+      >
+        Ready to Boost Your Productivity?
+      </h2>
+      <p
+        class="text-xl mb-8 text-slate-700 dark:text-slate-200 max-w-2xl mx-auto"
+      >
+        Join developers who've already enhanced their Vim experience with
+        LuxVim's powerful, thoughtfully designed configuration.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="https://github.com/josstei/JoStVIM"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-purple-500/25"
+        >
+          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+            ></path>
+          </svg>
+          Star on GitHub
+        </a>
+        <a
+          href="/docs"
+          class="inline-flex items-center px-8 py-4 text-lg font-semibold text-slate-600 dark:text-slate-200 bg-white/90 dark:bg-slate-700/80 backdrop-blur-sm border border-slate-300 dark:border-slate-600/50 rounded-xl hover:bg-white dark:hover:bg-slate-600/80 hover:text-slate-800 dark:hover:text-white transition-all duration-300 hover:scale-105 shadow-lg"
+        >
+          <svg
+            class="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+            ></path>
+          </svg>
+          Read Documentation
+        </a>
+      </div>
+    </div>
+  </section>
 </Main>
