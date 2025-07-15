@@ -1,6 +1,16 @@
 ---
 import "../styles/global.css";
 import Main from "../layouts/main.astro";
+import CodeBlock from "../components/CodeBlock.astro";
+
+// TODO: Extract these into a config file
+const installCode = `git clone https://github.com/josstei/JoStVIM.git
+cd LuxVIM`;
+
+const runInstallCode = `./install.sh`;
+
+const launchCode = `Luxvim  # For Vim
+Lux     # For Neovim`;
 ---
 
 <Main
@@ -204,7 +214,9 @@ import Main from "../layouts/main.astro";
     class="py-16 md:py-20
    bg-gray-50 dark:bg-slate-900
     dark:from-slate-800 dark:via-slate-700 dark:to-slate-600
-    dark:backdrop-blur-sm"
+    dark:backdrop-blur-sm
+    
+    "
   >
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-16">
@@ -423,8 +435,8 @@ import Main from "../layouts/main.astro";
   <section
     id="installation"
     class="py-20
-     bg-gradient-to-r
-      from-purple-200 via-indigo-200 to-white
+    bg-gray-50
+     dark:bg-gradient-to-r 
     dark:from-slate-900 dark:via-slate-800 dark:to-slate-700"
   >
     <div class="max-w-6xl mx-auto px-6">
@@ -458,13 +470,14 @@ import Main from "../layouts/main.astro";
               <p class="text-slate-700 dark:text-slate-300 mb-3">
                 Download LuxVim to your local machine:
               </p>
-              <div
-                class="bg-slate-800 text-gray-100 dark:bg-slate-700 dark:text-gray-200 rounded-lg p-4 font-mono text-sm overflow-x-auto shadow-lg"
+              <div 
+                data-controller="copy_to_clipboard" 
+                data-copy-to-clipboard-code-value={installCode}
               >
-                <code class="text-green-400"
-                  >git clone https://github.com/josstei/JoStVIM.git</code
-                ><br />
-                <code class="text-blue-400">cd LuxVIM</code>
+                <CodeBlock 
+                  code={installCode}
+                  lang="bash"
+                />
               </div>
             </div>
           </div>
@@ -484,10 +497,14 @@ import Main from "../layouts/main.astro";
               <p class="text-slate-700 dark:text-slate-300 mb-3">
                 The install script handles everything automatically:
               </p>
-              <div
-                class="bg-slate-800 text-gray-100 dark:bg-slate-700 dark:text-gray-200 rounded-lg p-4 font-mono text-sm shadow-lg"
+              <div 
+                data-controller="copy_to_clipboard" 
+                data-copy-to-clipboard-code-value={runInstallCode}
               >
-                <code class="text-yellow-400">./install.sh</code>
+                <CodeBlock 
+                  code={runInstallCode}
+                  lang="bash"
+                />
               </div>
             </div>
           </div>
@@ -507,13 +524,14 @@ import Main from "../layouts/main.astro";
               <p class="text-slate-700 dark:text-slate-300 mb-3">
                 Start coding with your new setup:
               </p>
-              <div
-                class="bg-slate-800 text-gray-100 dark:bg-slate-700 dark:text-gray-200 rounded-lg p-4 font-mono text-sm shadow-lg"
+              <div 
+                data-controller="copy_to_clipboard" 
+                data-copy-to-clipboard-code-value={launchCode}
               >
-                <code class="text-cyan-400">Luxvim</code>
-                <span class="text-slate-500"># For Vim</span><br />
-                <code class="text-cyan-400">Lux</code>
-                <span class="text-slate-500"># For Neovim</span>
+                <CodeBlock 
+                  code={launchCode}
+                  lang="bash"
+                />
               </div>
             </div>
           </div>
@@ -634,7 +652,7 @@ import Main from "../layouts/main.astro";
           Star on GitHub
         </a>
         <a
-          href="/docs"
+          href={import.meta.env.BASE_URL + "/docs"}
           class="inline-flex items-center px-8 py-4 text-lg font-semibold text-slate-600 dark:text-slate-200 bg-white/90 dark:bg-slate-700/80 backdrop-blur-sm border border-slate-300 dark:border-slate-600/50 rounded-xl hover:bg-white dark:hover:bg-slate-600/80 hover:text-slate-800 dark:hover:text-white transition-all duration-300 hover:scale-105 shadow-lg"
         >
           <svg
