@@ -212,7 +212,7 @@ Lux     # For Neovim`;
   <!-- Features Section -->
   <section
     class="py-16 md:py-20
-   bg-gray-50 dark:bg-slate-900
+   bg-white dark:bg-slate-900
     dark:from-slate-800 dark:via-slate-700 dark:to-slate-600
     dark:backdrop-blur-sm
     
@@ -435,8 +435,9 @@ Lux     # For Neovim`;
   <section
     id="installation"
     class="py-20
-    bg-gray-50
-     dark:bg-gradient-to-r 
+
+    bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50
+     dark:bg-gradient-to-r
     dark:from-slate-900 dark:via-slate-800 dark:to-slate-700"
   >
     <div class="max-w-6xl mx-auto px-6">
@@ -455,9 +456,11 @@ Lux     # For Neovim`;
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <!-- Installation Steps -->
         <div class="space-y-8">
-          <div class="flex items-start space-x-4">
+          <div
+            class="flex items-start space-x-4 p-6 bg-white/70 dark:bg-slate-800/50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] border border-purple-100 dark:border-slate-700"
+          >
             <div
-              class="flex-shrink-0 w-10 h-10 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
+              class="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg"
             >
               1
             </div>
@@ -470,21 +473,21 @@ Lux     # For Neovim`;
               <p class="text-slate-700 dark:text-slate-300 mb-3">
                 Download LuxVim to your local machine:
               </p>
-              <div 
-                data-controller="copy_to_clipboard" 
+
+              <div
+                data-controller="copy_to_clipboard"
                 data-copy-to-clipboard-code-value={installCode}
               >
-                <CodeBlock 
-                  code={installCode}
-                  lang="bash"
-                />
+                <CodeBlock code={installCode} lang="bash" />
+
               </div>
             </div>
           </div>
-
-          <div class="flex items-start space-x-4">
+          <div
+            class="flex items-start space-x-4 p-6 bg-white/70 dark:bg-slate-800/50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] border border-purple-100 dark:border-slate-700"
+          >
             <div
-              class="flex-shrink-0 w-10 h-10 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
+              class="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg"
             >
               2
             </div>
@@ -497,21 +500,21 @@ Lux     # For Neovim`;
               <p class="text-slate-700 dark:text-slate-300 mb-3">
                 The install script handles everything automatically:
               </p>
-              <div 
-                data-controller="copy_to_clipboard" 
+
+              <div
+                data-controller="copy_to_clipboard"
                 data-copy-to-clipboard-code-value={runInstallCode}
               >
-                <CodeBlock 
-                  code={runInstallCode}
-                  lang="bash"
-                />
+                <CodeBlock code={runInstallCode} lang="bash" />
+
               </div>
             </div>
           </div>
-
-          <div class="flex items-start space-x-4">
+          <div
+            class="flex items-start space-x-4 p-6 bg-white/70 dark:bg-slate-800/50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] border border-purple-100 dark:border-slate-700"
+          >
             <div
-              class="flex-shrink-0 w-10 h-10 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold text-lg"
+              class="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg"
             >
               3
             </div>
@@ -524,14 +527,12 @@ Lux     # For Neovim`;
               <p class="text-slate-700 dark:text-slate-300 mb-3">
                 Start coding with your new setup:
               </p>
-              <div 
-                data-controller="copy_to_clipboard" 
+              <div
+                data-controller="copy_to_clipboard"
                 data-copy-to-clipboard-code-value={launchCode}
               >
-                <CodeBlock 
-                  code={launchCode}
-                  lang="bash"
-                />
+                <CodeBlock code={launchCode} lang="bash" />
+
               </div>
             </div>
           </div>
@@ -539,15 +540,14 @@ Lux     # For Neovim`;
 
         <!-- Requirements & Features -->
         <div
-          class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-8"
+          class="bg-indigo-100 dark:bg-slate-800 rounded-2xl p-8 shadow-xl border border-purple-100/50 dark:border-slate-700 backdrop-blur-sm"
         >
-          <h3 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
-            Requirements
-          </h3>
-          <ul class="space-y-3 mb-8">
-            <li class="flex items-center text-slate-700 dark:text-slate-300">
+          <div class="flex items-center mb-6">
+            <div
+              class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mr-4"
+            >
               <svg
-                class="w-5 h-5 text-green-500 mr-3"
+                class="w-6 h-6 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -556,51 +556,120 @@ Lux     # For Neovim`;
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
-                  d="M5 13l4 4L19 7"></path>
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
-              Bash shell (Linux/macOS/WSL)
+            </div>
+            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">
+              Requirements
+            </h3>
+          </div>
+          <ul class="space-y-4 mb-8">
+            <li
+              class="flex items-center text-slate-700 dark:text-slate-300 p-3 bg-white/50 dark:bg-slate-700/30 rounded-lg"
+            >
+              <div
+                class="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mr-4"
+              >
+                <svg
+                  class="w-5 h-5 text-green-600 dark:text-green-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <span class="font-medium">Bash shell (Linux/macOS/WSL)</span>
             </li>
-            <li class="flex items-center text-slate-700 dark:text-slate-300">
-              <svg
-                class="w-5 h-5 text-green-500 mr-3"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            <li
+              class="flex items-center text-slate-700 dark:text-slate-300 p-3 bg-white/50 dark:bg-slate-700/30 rounded-lg"
+            >
+              <div
+                class="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mr-4"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5 13l4 4L19 7"></path>
-              </svg>
-              Vim or Neovim (recent versions)
+                <svg
+                  class="w-5 h-5 text-green-600 dark:text-green-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <span class="font-medium">Vim or Neovim (recent versions)</span>
             </li>
-            <li class="flex items-center text-slate-700 dark:text-slate-300">
-              <svg
-                class="w-5 h-5 text-green-500 mr-3"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            <li
+              class="flex items-center text-slate-700 dark:text-slate-300 p-3 bg-slate-100 dark:bg-slate-700/30 rounded-lg"
+            >
+              <div
+                class="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mr-4"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5 13l4 4L19 7"></path>
-              </svg>
-              curl for downloading plugins
+                <svg
+                  class="w-5 h-5 text-green-600 dark:text-green-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <span class="font-medium">curl for downloading plugins</span>
             </li>
           </ul>
 
-          <div class="bg-white/50 dark:bg-slate-900/50 rounded-xl p-6">
-            <h4 class="font-semibold mb-3 text-slate-900 dark:text-white">
-              What the installer does:
-            </h4>
-            <ul class="space-y-2 text-sm text-slate-700 dark:text-slate-300">
-              <li>• Downloads and installs vim-plug</li>
-              <li>• Installs all plugins automatically</li>
-              <li>• Adds convenient shell aliases</li>
-              <li>• Keeps your existing Vim config safe</li>
+          <div
+            class="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-blue-100 dark:border-slate-600"
+          >
+            <div class="flex items-center mb-4">
+              <div
+                class="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center mr-3"
+              >
+                <svg
+                  class="w-5 h-5 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+              </div>
+              <h4 class="font-semibold text-slate-900 dark:text-white">
+                What the installer does:
+              </h4>
+            </div>
+            <ul class="space-y-3 text-sm text-slate-700 dark:text-slate-200">
+              <li class="flex items-center">
+                <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                <span>Downloads and installs vim-plug</span>
+              </li>
+              <li class="flex items-center">
+                <div class="w-2 h-2 bg-cyan-500 rounded-full mr-3"></div>
+                <span>Installs all plugins automatically</span>
+              </li>
+              <li class="flex items-center">
+                <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                <span>Adds convenient shell aliases</span>
+              </li>
+              <li class="flex items-center">
+                <div class="w-2 h-2 bg-cyan-500 rounded-full mr-3"></div>
+                <span>Keeps your existing Vim config safe</span>
+              </li>
             </ul>
           </div>
         </div>

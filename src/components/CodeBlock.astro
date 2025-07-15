@@ -10,6 +10,8 @@ interface Props {
   lightTheme?: string;
   /** Shiki theme for dark mode */
   darkTheme?: string;
+  defaultColor?: boolean;
+
 }
 
 const {
@@ -17,8 +19,8 @@ const {
   lang,
   wrap = false,
   inline = false,
-  lightTheme = 'min-light',
-  darkTheme = 'night-owl',
+  lightTheme = 'nord',
+  darkTheme = 'nord',
 } = Astro.props as Props;
 ---
 
@@ -33,6 +35,8 @@ const {
     wrap={wrap}
     inline={inline}
     theme={lightTheme}
+    defaultColor={false}
+
     class="text-sm block dark:hidden"
   />
 
@@ -43,6 +47,7 @@ const {
     wrap={wrap}
     inline={inline}
     theme={darkTheme}
+    defaultColor={false}
     class="hidden dark:block text-sm"
   />
 </div>
