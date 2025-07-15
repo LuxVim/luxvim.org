@@ -1,0 +1,48 @@
+---
+import { Code } from 'astro:components';
+
+interface Props {
+  code: string;
+  lang: string;
+  wrap?: boolean;
+  inline?: boolean;
+  /** Shiki theme for light mode */
+  lightTheme?: string;
+  /** Shiki theme for dark mode */
+  darkTheme?: string;
+}
+
+const {
+  code,
+  lang,
+  wrap = false,
+  inline = false,
+  lightTheme = 'min-light',
+  darkTheme = 'night-owl',
+} = Astro.props as Props;
+---
+
+<div 
+  class="relative group"
+  data-code={code}
+>
+  <!-- Light theme for light mode, hidden in dark -->
+  <Code
+    code={code}
+    lang={lang}
+    wrap={wrap}
+    inline={inline}
+    theme={lightTheme}
+    class="text-sm block dark:hidden"
+  />
+
+  <!-- Dark theme for dark mode, hidden in light -->
+  <Code
+    code={code}
+    lang={lang}
+    wrap={wrap}
+    inline={inline}
+    theme={darkTheme}
+    class="hidden dark:block text-sm"
+  />
+</div>
