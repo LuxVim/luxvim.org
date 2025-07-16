@@ -464,19 +464,20 @@ Lux     # For Neovim`;
             >
               1
             </div>
-            <div>
+            <div class="flex-1 min-w-0">
               <h3
                 class="text-xl font-semibold mb-2 text-slate-900 dark:text-white"
               >
                 Clone the Repository
               </h3>
-              <p class="text-slate-700 dark:text-slate-300 mb-3">
+              <p class="text-slate-700 dark:text-slate-300 mb-4">
                 Download LuxVim to your local machine:
               </p>
 
               <div
                 data-controller="copy_to_clipboard"
                 data-copy-to-clipboard-code-value={installCode}
+                class="w-full"
               >
                 <CodeBlock code={installCode} lang="bash" />
 
@@ -491,19 +492,20 @@ Lux     # For Neovim`;
             >
               2
             </div>
-            <div>
+            <div class="flex-1 min-w-0">
               <h3
                 class="text-xl font-semibold mb-2 text-slate-900 dark:text-white"
               >
                 Run Installation
               </h3>
-              <p class="text-slate-700 dark:text-slate-300 mb-3">
+              <p class="text-slate-700 dark:text-slate-300 mb-4">
                 The install script handles everything automatically:
               </p>
 
               <div
                 data-controller="copy_to_clipboard"
                 data-copy-to-clipboard-code-value={runInstallCode}
+                class="w-full"
               >
                 <CodeBlock code={runInstallCode} lang="bash" />
 
@@ -518,18 +520,19 @@ Lux     # For Neovim`;
             >
               3
             </div>
-            <div>
+            <div class="flex-1 min-w-0">
               <h3
                 class="text-xl font-semibold mb-2 text-slate-900 dark:text-white"
               >
                 Launch LuxVim
               </h3>
-              <p class="text-slate-700 dark:text-slate-300 mb-3">
+              <p class="text-slate-700 dark:text-slate-300 mb-4">
                 Start coding with your new setup:
               </p>
               <div
                 data-controller="copy_to_clipboard"
                 data-copy-to-clipboard-code-value={launchCode}
+                class="w-full"
               >
                 <CodeBlock code={launchCode} lang="bash" />
 
