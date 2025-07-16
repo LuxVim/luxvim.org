@@ -1,6 +1,7 @@
 ---
 // src/components/Navbar.astro
 import ThemeToggle from './ThemeToggle.astro';
+import logoImage from '../assets/luxvim-full-logo-with-lettering.png';
 
 export interface Props {
   githubUrl?: string;
@@ -30,21 +31,12 @@ const {
     <!-- Left side - Brand + Nav Links -->
     <div class="flex items-center space-x-12 -ml-4">
       <!-- Brand -->
-      <a href={import.meta.env.BASE_URL} class="flex items-center space-x-3 group transition-all duration-300 hover:scale-105">
-        <!-- Logo -->
-        <div class="relative">
-          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 flex items-center justify-center shadow-lg group-hover:shadow-purple-500/25 transition-all duration-300">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-            </svg>
-          </div>
-          <div class="absolute -inset-1 rounded-lg bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 opacity-20 group-hover:opacity-40 blur transition-all duration-300"></div>
-        </div>
-        
-        <!-- Brand Name -->
-        <span class="text-xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text group-hover:from-purple-300 group-hover:via-pink-400 group-hover:to-red-400 transition-all duration-300">
-          LuxVim
-        </span>
+      <a href={import.meta.env.BASE_URL} class="flex items-center group transition-all duration-300 hover:scale-105">
+        <img
+          src={logoImage.src}
+          alt="LuxVim"
+          class="h-20 w-auto object-contain"
+        />
       </a>
 
       <!-- Navigation Links -->
