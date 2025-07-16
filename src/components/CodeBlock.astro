@@ -25,7 +25,7 @@ const {
 ---
 
 <div 
-  class="relative group"
+  class="relative group bg-slate-50 dark:bg-slate-900/50 rounded-lg border border-slate-200 dark:border-slate-600 overflow-x-auto"
   data-code={code}
 >
   <!-- Light theme for light mode, hidden in dark -->
@@ -36,8 +36,7 @@ const {
     inline={inline}
     theme={lightTheme}
     defaultColor={false}
-
-    class="text-sm block dark:hidden"
+    class="text-sm block dark:hidden !bg-transparent"
   />
 
   <!-- Dark theme for dark mode, hidden in light -->
@@ -48,6 +47,6 @@ const {
     inline={inline}
     theme={darkTheme}
     defaultColor={false}
-    class="hidden dark:block text-sm"
+    class="hidden dark:block text-sm !bg-transparent"
   />
 </div>
