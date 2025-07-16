@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Main from "../layouts/main.astro";
 import CodeBlock from "../components/CodeBlock.astro";
+import logoImage from "../assets/luxvim-full-logo-with-lettering.png";
 
 // TODO: Extract these into a config file
 const installCode = `git clone https://github.com/josstei/JoStVIM.git
@@ -32,16 +33,14 @@ Lux     # For Neovim`;
 
     <!-- Gradient overlay for better text contrast -->
     <div
-      class="absolute inset-0 z-5 bg-gradient-to-b from-transparent via-black/5 to-black/15 dark:from-transparent dark:via-black/20 dark:to-black/40"
+      class="absolute inset-0 z-5 bg-gradient-to-b from-purple-50/20 via-purple-100/30 to-purple-200/40 dark:from-transparent dark:via-black/20 dark:to-black/40"
     >
     </div>
 
     <!-- Hero Content -->
-    <div
-      class="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-6 pt-20 md:pt-0"
-    >
+    <div class="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-6 pt-0 md:pt-6">
       <!-- Status Badge -->
-      <div class="mb-6 md:mb-8">
+      <div class="mt-20">
         <span
           class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300"
         >
@@ -52,16 +51,14 @@ Lux     # For Neovim`;
       </div>
 
       <!-- Main Headlines -->
-      <h1
-        class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight"
-      >
-        <span
-          class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text"
-        >
-          LuxVim
-        </span>
-      </h1>
-
+      <!-- Logo -->
+      <div>
+      <img
+        src={logoImage.src}
+        alt="LuxVim Logo"
+        class="h-60 md:h-80 lg:h-98 mx-auto object-contain"
+      />
+        </div>
       <h2
         class="text-2xl md:text-3xl lg:text-4xl font-semibold mb-8 text-slate-800 dark:text-slate-200"
       >
@@ -78,7 +75,7 @@ Lux     # For Neovim`;
       </p>
 
       <!-- CTA Buttons -->
-      <div class="flex flex-col sm:flex-row gap-4 mb-16">
+      <div class="flex flex-col sm:flex-row gap-4 mb-12">
         <a
           href="#installation"
           class="inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-purple-500/25"
@@ -114,11 +111,8 @@ Lux     # For Neovim`;
       </div>
 
       <!-- Features Preview -->
-      <div
-        class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-8 md:mb-0"
-      >
-        <div
-          class="flex items-center justify-center p-4 bg-white/5 dark:bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-200/10 dark:border-slate-700/30"
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-8 md:mb-12" >
+        <div class="flex items-center justify-center p-4 bg-white/5 dark:bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-200/10 dark:border-slate-700/30" 
         >
           <div class="text-center">
             <div
@@ -214,9 +208,7 @@ Lux     # For Neovim`;
     class="py-16 md:py-20
    bg-white dark:bg-slate-900
     dark:from-slate-800 dark:via-slate-700 dark:to-slate-600
-    dark:backdrop-blur-sm
-    
-    "
+    dark:backdrop-blur-sm"
   >
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-16">
@@ -435,7 +427,6 @@ Lux     # For Neovim`;
   <section
     id="installation"
     class="py-20
-
     bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50
      dark:bg-gradient-to-r
     dark:from-slate-900 dark:via-slate-800 dark:to-slate-700"
@@ -480,7 +471,6 @@ Lux     # For Neovim`;
                 class="w-full"
               >
                 <CodeBlock code={installCode} lang="bash" />
-
               </div>
             </div>
           </div>
@@ -508,7 +498,6 @@ Lux     # For Neovim`;
                 class="w-full"
               >
                 <CodeBlock code={runInstallCode} lang="bash" />
-
               </div>
             </div>
           </div>
@@ -535,7 +524,6 @@ Lux     # For Neovim`;
                 class="w-full"
               >
                 <CodeBlock code={launchCode} lang="bash" />
-
               </div>
             </div>
           </div>
