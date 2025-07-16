@@ -121,6 +121,31 @@ nav {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+/* Gentle pulse animation for logo */
+@keyframes pulse-gentle {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+  }
+}
+
+.animate-pulse-gentle {
+  animation: pulse-gentle 4s ease-in-out infinite;
+}
+
+/* Logo hover glow effect */
+.logo-glow:hover {
+  filter: drop-shadow(0 10px 20px rgba(147, 51, 234, 0.3)) 
+          drop-shadow(0 0 30px rgba(219, 39, 119, 0.2))
+          drop-shadow(0 0 50px rgba(147, 51, 234, 0.4))
+          drop-shadow(0 0 80px rgba(219, 39, 119, 0.3)) !important;
+}
+
+
 /* Shiki dual theme support */
 .astro-code,
 .astro-code span {
