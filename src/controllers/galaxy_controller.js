@@ -12,6 +12,12 @@ export default class extends Controller {
     this.handleResize = this.handleResize.bind(this)
     window.addEventListener('resize', this.handleResize)
 
+    // Handle scroll events for performance
+    this.isScrolling = false
+    this.scrollTimeout = null
+    this.handleScroll = this.handleScroll.bind(this)
+    window.addEventListener('scroll', this.handleScroll, { passive: true })
+
     // Handle theme changes
     this.handleThemeChange = this.handleThemeChange.bind(this)
     const observer = new MutationObserver(this.handleThemeChange)
@@ -27,6 +33,10 @@ export default class extends Controller {
       cancelAnimationFrame(this.animationId)
     }
     window.removeEventListener('resize', this.handleResize)
+    window.removeEventListener('scroll', this.handleScroll)
+    if (this.scrollTimeout) {
+      clearTimeout(this.scrollTimeout)
+    }
     if (this.themeObserver) {
       this.themeObserver.disconnect()
     }
@@ -62,12 +72,19 @@ export default class extends Controller {
   resizeCanvas() {
     if (!this.canvas) return
 
-    this.canvas.width = window.innerWidth
-    this.canvas.height = window.innerHeight
+    // Use element's client dimensions for better mobile viewport handling
+    const container = this.canvas.parentElement
+    this.canvas.width = container.clientWidth || window.innerWidth
+    this.canvas.height = container.clientHeight || window.innerHeight
   }
 
   createParticles() {
-    const particleCount = Math.floor((this.canvas.width * this.canvas.height) / 8000)
+    // Reduce particle count on mobile devices for better performance
+    const isMobile = window.innerWidth <= 768
+    const baseArea = this.canvas.width * this.canvas.height
+    const divisor = isMobile ? 12000 : 8000
+    const particleCount = Math.floor(baseArea / divisor)
+    
     this.particles = []
 
     for (let i = 0; i < particleCount; i++) {
@@ -79,7 +96,7 @@ export default class extends Controller {
     const isDark = document.documentElement.classList.contains('dark')
     const colors = isDark
       ? ['#ffffff', '#f8fafc', '#e2e8f0', '#cbd5e1', '#fbbf24', '#fde047']
-      : ['#1e293b', '#334155', '#475569', '#64748b', '#0f172a', '#1e40af']
+      : ['#7c3aed', '#ec4899', '#f59e0b', '#ef4444', '#8b5cf6', '#d946ef']
 
     // Random distribution across the sky
     const x = Math.random() * this.canvas.width
@@ -99,17 +116,17 @@ export default class extends Controller {
     if (starType < 0.1) {
       // Bright stars (10%)
       baseRadius = brightness * 2.5 + 1.5
-      baseOpacity = isDark ? 0.9 : 0.8
+      baseOpacity = isDark ? 0.9 : 1.0
       twinkleSpeed = 0.03
     } else if (starType < 0.3) {
       // Medium stars (20%)
       baseRadius = brightness * 1.5 + 0.8
-      baseOpacity = isDark ? 0.7 : 0.6
+      baseOpacity = isDark ? 0.7 : 1.0
       twinkleSpeed = 0.02
     } else {
       // Dim stars (70%)
       baseRadius = brightness * 0.8 + 0.3
-      baseOpacity = isDark ? 0.4 : 0.3
+      baseOpacity = isDark ? 0.4 : 0.9
       twinkleSpeed = 0.015
     }
 
@@ -121,8 +138,8 @@ export default class extends Controller {
       radius: baseRadius,
       baseRadius: baseRadius,
       color: colors[Math.floor(Math.random() * colors.length)],
-      opacity: baseOpacity * (0.7 + Math.random() * 0.3),
-      baseOpacity: baseOpacity * (0.7 + Math.random() * 0.3),
+      opacity: isDark ? baseOpacity * (0.7 + Math.random() * 0.3) : 1.0,
+      baseOpacity: isDark ? baseOpacity * (0.7 + Math.random() * 0.3) : 1.0,
       twinkleSpeed: twinkleSpeed + (Math.random() - 0.5) * 0.01,
       twinklePhase: Math.random() * Math.PI * 2,
       brightness: brightness,
@@ -142,7 +159,7 @@ export default class extends Controller {
   updateParticles() {
     this.time += 0.01
 
-    this.particles.forEach((particle, index) => {
+    this.particles.forEach((particle) => {
       // Gentle drifting motion
       particle.x += particle.vx
       particle.y += particle.vy
@@ -154,7 +171,8 @@ export default class extends Controller {
       // Twinkling effect
       particle.twinklePhase += particle.twinkleSpeed
       const twinkleFactor = Math.sin(particle.twinklePhase) * 0.3 + 0.7
-      particle.currentOpacity = particle.baseOpacity * twinkleFactor
+      const isDark = document.documentElement.classList.contains('dark')
+      particle.currentOpacity = isDark ? particle.baseOpacity * twinkleFactor : 1.0
 
       // Size twinkling for brighter stars
       if (particle.starType < 0.1) {
@@ -193,14 +211,21 @@ export default class extends Controller {
       this.ctx.save()
 
       // Create glow effect for bright stars
+      const isDark = document.documentElement.classList.contains('dark')
       if (particle.starType < 0.1) {
         this.ctx.shadowColor = particle.color
-        this.ctx.shadowBlur = particle.radius * 4
+        this.ctx.shadowBlur = isDark ? particle.radius * 4 : particle.radius * 6
         this.ctx.shadowOffsetX = 0
         this.ctx.shadowOffsetY = 0
       } else if (particle.starType < 0.3) {
         this.ctx.shadowColor = particle.color
-        this.ctx.shadowBlur = particle.radius * 2
+        this.ctx.shadowBlur = isDark ? particle.radius * 2 : particle.radius * 4
+        this.ctx.shadowOffsetX = 0
+        this.ctx.shadowOffsetY = 0
+      } else if (!isDark) {
+        // Add glow to all particles in light mode for visibility
+        this.ctx.shadowColor = particle.color
+        this.ctx.shadowBlur = particle.radius * 3
         this.ctx.shadowOffsetX = 0
         this.ctx.shadowOffsetY = 0
       }
@@ -276,6 +301,12 @@ export default class extends Controller {
   }
 
   animate() {
+    // Skip animation during scroll for better performance
+    if (this.isScrolling) {
+      this.animationId = requestAnimationFrame(() => this.animate())
+      return
+    }
+
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
     this.updateParticles()
@@ -290,16 +321,31 @@ export default class extends Controller {
       const isDark = document.documentElement.classList.contains('dark')
       const colors = isDark
         ? ['#ffffff', '#a855f7', '#ec4899', '#3b82f6', '#10b981']
-        : ['#1f2937', '#7c3aed', '#be185d', '#1d4ed8', '#047857']
+        : ['#7c3aed', '#ec4899', '#f59e0b', '#ef4444', '#8b5cf6']
 
       particle.color = colors[Math.floor(Math.random() * colors.length)]
-      particle.opacity = isDark ? Math.random() * 0.8 + 0.2 : Math.random() * 0.9 + 0.4
+      particle.opacity = isDark ? Math.random() * 0.8 + 0.2 : 1.0
+      particle.baseOpacity = isDark ? Math.random() * 0.8 + 0.2 : 1.0
     })
   }
 
   handleResize() {
     this.resizeCanvas()
     this.createParticles()
+  }
+
+  handleScroll() {
+    this.isScrolling = true
+    
+    // Clear previous timeout
+    if (this.scrollTimeout) {
+      clearTimeout(this.scrollTimeout)
+    }
+    
+    // Resume animation after scroll ends
+    this.scrollTimeout = setTimeout(() => {
+      this.isScrolling = false
+    }, 150)
   }
 
   handleThemeChange() {
