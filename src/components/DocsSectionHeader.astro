@@ -1,0 +1,43 @@
+---
+export interface Props {
+  id?: string;
+  level?: 'h1' | 'h2' | 'h3' | 'h4';
+  title: string;
+  description?: string;
+}
+
+const { id, level = 'h2', title, description } = Astro.props;
+const Tag = level;
+
+const headingClasses = {
+  h1: 'text-4xl font-bold text-gray-900 dark:text-white',
+  h2: 'text-3xl font-semibold text-gray-900 dark:text-white',
+  h3: 'text-2xl font-semibold text-gray-800 dark:text-gray-100',
+  h4: 'text-xl font-medium text-gray-800 dark:text-gray-100',
+};
+---
+
+<div class="mb-8">
+  <Tag 
+    id={id} 
+    class={`${headingClasses[level]} mb-3 scroll-mt-40 group flex items-center`}
+  >
+    {title}
+    {id && (
+      <a 
+        href={`#${id}`}
+        class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+        aria-label={`Link to ${title}`}
+      >
+        <svg class="w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+        </svg>
+      </a>
+    )}
+  </Tag>
+  {description && (
+    <p class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
+      {description}
+    </p>
+  )}
+</div>
