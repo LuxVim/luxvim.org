@@ -91,6 +91,7 @@ export default class extends Controller {
     // Set CSS size to maintain proper display
     this.canvas.style.width = width + 'px'
     this.canvas.style.height = height + 'px'
+
   }
 
   createParticles() {
@@ -316,6 +317,12 @@ export default class extends Controller {
   }
 
   animate() {
+    // Skip animation during scroll for better performance
+    if (this.isScrolling) {
+      this.animationId = requestAnimationFrame(() => this.animate())
+      return
+    }
+
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
     // Reduce update frequency during scroll for better performance
@@ -352,21 +359,25 @@ export default class extends Controller {
   }
 
   handleScroll() {
+
     // Don't pause animation completely - instead reduce update frequency
     if (!this.isScrolling) {
       this.isScrolling = true
       this.scrollStartTime = performance.now()
     }
+
     
     // Clear previous timeout
     if (this.scrollTimeout) {
       clearTimeout(this.scrollTimeout)
     }
     
+
     // Resume normal animation after scroll ends
     this.scrollTimeout = setTimeout(() => {
       this.isScrolling = false
     }, 100)
+
   }
 
   handleThemeChange() {
