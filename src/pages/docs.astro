@@ -1,11 +1,134 @@
 ---
 import '../styles/global.css';
-import Main from '../layouts/main.astro';
+import DocsLayout from '../layouts/docs.astro';
+import DocsSectionHeader from '../components/DocsSectionHeader.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+
+const sections = [
+  {
+    title: 'Getting Started',
+    items: [
+      { label: 'Introduction', href: '#introduction', active: true },
+      { label: 'Installation', href: '#installation' },
+      { label: 'Quick Start', href: '#quick-start' },
+      { label: 'Configuration', href: '#configuration' },
+    ]
+  },
+  {
+    title: 'Core Features',
+    items: [
+      { label: 'File Navigation', href: '#file-navigation' },
+      { label: 'Search & Replace', href: '#search-replace' },
+      { label: 'Code Completion', href: '#code-completion' },
+      { label: 'Syntax Highlighting', href: '#syntax-highlighting' },
+    ]
+  },
+  {
+    title: 'Advanced',
+    items: [
+      { label: 'Custom Keybindings', href: '#keybindings' },
+      { label: 'Plugin System', href: '#plugins' },
+      { label: 'Themes', href: '#themes' },
+      { label: 'Language Servers', href: '#language-servers' },
+    ]
+  },
+  {
+    title: 'Reference',
+    items: [
+      { label: 'Commands', href: '#commands' },
+      { label: 'API', href: '#api' },
+      { label: 'Troubleshooting', href: '#troubleshooting' },
+      { label: 'FAQ', href: '#faq' },
+    ]
+  }
+];
 ---
-<Main 
-  title="Documentation | LuxVim - Lightweight Vim IDE for Developers"
-  description="A lightweight Vim IDE designed for developers, offering a seamless coding experience with powerful features and a user-friendly interface."
-  keywords="vim, neovim, Luxvim, ide, lightweight, developer tools, coding, programming, text editor, productivity"
-  githubUrl="https://github.com/LuxVim/LuxVim"
+
+<DocsLayout 
+  title="Documentation | LuxVim"
+  description="Complete documentation for LuxVim - A lightweight Vim IDE designed for developers"
+  currentPage="Introduction"
+  breadcrumbs={[
+    { label: "Docs", href: "/docs" },
+    { label: "Getting Started" },
+    { label: "Introduction" }
+  ]}
+  sections={sections}
 >
-</Main>
+  <DocsSectionHeader 
+    id="introduction"
+    level="h1"
+    title="LuxVim Documentation"
+    description="Welcome to the LuxVim documentation. Here you'll find everything you need to get started with LuxVim and make the most of its powerful features."
+  />
+
+  <div class="prose prose-lg dark:prose-invert max-w-none">
+    <p class="text-gray-600 dark:text-gray-400">
+      LuxVim is a lightweight, fast, and highly customizable Vim IDE that provides a modern development experience while maintaining the power and efficiency of Vim.
+    </p>
+  </div>
+
+  <DocsSectionHeader 
+    id="installation"
+    level="h2"
+    title="Installation"
+    description="Get up and running with LuxVim in minutes."
+  />
+
+  <div class="prose prose-lg dark:prose-invert max-w-none">
+    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Prerequisites</h3>
+    <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-400 mb-6">
+      <li>Neovim 0.9.0 or higher</li>
+      <li>Git</li>
+      <li>A Nerd Font (optional but recommended)</li>
+    </ul>
+
+    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Quick Install</h3>
+  </div>
+
+  <CodeBlock lang="bash" code={`# Clone the repository
+git clone https://github.com/LuxVim/LuxVim ~/.config/nvim
+
+# Start Neovim
+nvim`} />
+
+  <DocsSectionHeader 
+    id="quick-start"
+    level="h2"
+    title="Quick Start"
+    description="Learn the basics to start using LuxVim effectively."
+  />
+
+  <div class="prose prose-lg dark:prose-invert max-w-none">
+    <p class="text-gray-600 dark:text-gray-400 mb-4">
+      After installation, LuxVim will automatically install all required plugins on first launch. Here are some essential commands to get you started:
+    </p>
+    
+    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Essential Commands</h3>
+    <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-400">
+      <li><code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Space</code> - Leader key</li>
+      <li><code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Space + e</code> - Toggle file explorer</li>
+      <li><code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Space + f + f</code> - Find files</li>
+      <li><code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Space + f + g</code> - Live grep</li>
+    </ul>
+  </div>
+
+  <DocsSectionHeader 
+    id="configuration"
+    level="h2"
+    title="Configuration"
+    description="Customize LuxVim to match your workflow."
+  />
+
+  <div class="prose prose-lg dark:prose-invert max-w-none">
+    <p class="text-gray-600 dark:text-gray-400 mb-4">
+      LuxVim uses a modular configuration system. Configuration files are located in <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">~/.config/nvim/lua/</code>
+    </p>
+  </div>
+
+  <CodeBlock lang="lua" code={`-- Example configuration
+vim.opt.number = true         -- Show line numbers
+vim.opt.relativenumber = true -- Show relative line numbers
+vim.opt.wrap = false          -- Disable line wrap
+vim.opt.mouse = 'a'           -- Enable mouse support`} />
+</DocsLayout>
