@@ -72,10 +72,25 @@ export default class extends Controller {
   resizeCanvas() {
     if (!this.canvas) return
 
-    // Use element's client dimensions for better mobile viewport handling
+    // Use container dimensions but ensure they don't exceed viewport
     const container = this.canvas.parentElement
-    this.canvas.width = container.clientWidth || window.innerWidth
-    this.canvas.height = container.clientHeight || window.innerHeight
+    const containerWidth = container.clientWidth
+    const containerHeight = container.clientHeight
+    
+    // On mobile, ensure canvas doesn't exceed viewport width
+    const isMobile = window.innerWidth <= 768
+    const width = isMobile ? Math.min(containerWidth, window.innerWidth) : containerWidth
+    const height = containerHeight
+    
+    // Set canvas size with device pixel ratio for crisp rendering
+    const dpr = window.devicePixelRatio || 1
+    this.canvas.width = width * dpr
+    this.canvas.height = height * dpr
+    this.ctx.scale(dpr, dpr)
+    
+    // Set CSS size to maintain proper display
+    this.canvas.style.width = width + 'px'
+    this.canvas.style.height = height + 'px'
   }
 
   createParticles() {
@@ -301,17 +316,19 @@ export default class extends Controller {
   }
 
   animate() {
-    // Skip animation during scroll for better performance
-    if (this.isScrolling) {
-      this.animationId = requestAnimationFrame(() => this.animate())
-      return
-    }
-
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-    this.updateParticles()
+    // Reduce update frequency during scroll for better performance
+    const shouldUpdate = !this.isScrolling || (performance.now() - (this.lastScrollUpdate || 0)) > 100
+    
+    if (shouldUpdate) {
+      this.updateParticles()
+      if (this.isScrolling) {
+        this.lastScrollUpdate = performance.now()
+      }
+    }
+    
     this.drawParticles()
-
     this.animationId = requestAnimationFrame(() => this.animate())
   }
 
@@ -335,17 +352,21 @@ export default class extends Controller {
   }
 
   handleScroll() {
-    this.isScrolling = true
+    // Don't pause animation completely - instead reduce update frequency
+    if (!this.isScrolling) {
+      this.isScrolling = true
+      this.scrollStartTime = performance.now()
+    }
     
     // Clear previous timeout
     if (this.scrollTimeout) {
       clearTimeout(this.scrollTimeout)
     }
     
-    // Resume animation after scroll ends
+    // Resume normal animation after scroll ends
     this.scrollTimeout = setTimeout(() => {
       this.isScrolling = false
-    }, 150)
+    }, 100)
   }
 
   handleThemeChange() {

@@ -25,6 +25,25 @@
   transform: translateZ(0);
 }
 
+/* Mobile viewport fixes */
+@media screen and (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+  
+  /* Ensure galaxy backgrounds fill viewport on mobile */
+  #galaxy-background, #galaxy-background-cta {
+    min-width: 100vw;
+    min-height: 100vh;
+  }
+  
+  /* Prevent canvas from creating horizontal scrollbars */
+  #galaxy-canvas, #galaxy-canvas-cta {
+    max-width: 100vw;
+    object-fit: cover;
+  }
+}
+
 /* Smooth transitions for theme changes */
 .transition-colors {
   transition: background-color 0.3s ease, color 0.3s ease;
